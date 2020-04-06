@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="#CC000000"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".Apuntarse_act">
+
+
+        <Switch
+            android:id="@+id/switcgFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quieres traerte une invitade?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayou"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <androidx.appcompat.widget.AppCompatSeekBar
+                android:id="@+id/NumeroDeInvitadosBarra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:drawingCacheQuality="auto"
+                android:max="10"
+                android:paddingStart="20dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:paddingRight="10dp"
+                android:progress="0"
+                android:visibility="visible"
+                app:tickMark="@color/colorPrimary"
+                app:tickMarkTint="#BA68C8"
+                app:tickMarkTintMode="src_over" />
+                <!---android:thumb="@drawable/circuloconico"-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Numero de Invitados:"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/NumeroDeInv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="TextView"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/BotonApuntarse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:text="Apuntarse" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

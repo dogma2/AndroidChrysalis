@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/item1"
+        android:icon="@drawable/ic_expand_less_black_36dp"
+        android:title="Ubicacion" />
+    <item
+        android:id="@+id/item2"
+        android:icon="@drawable/ic_expand_less_black_36dp"
+        android:title="Fecha y Hora" />
+    <item
+        android:id="@+id/item3"
+        android:icon="@drawable/ic_expand_less_black_36dp"
+        android:title="Descripción" />
+    <item
+        android:id="@+id/item4"
+        android:icon="@drawable/ic_expand_less_black_36dp"
+        android:title="Ficheros" />
+
+</menu>
