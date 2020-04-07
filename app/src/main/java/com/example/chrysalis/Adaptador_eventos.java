@@ -24,11 +24,13 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
 
     ArrayList<Evento> eventos;
     Context contexto;
+    View.OnClickListener Lisener;
 
 
 
-    public Adaptador_eventos(ArrayList<Evento> eventos) {
+    public Adaptador_eventos(ArrayList<Evento> eventos, View.OnClickListener lisener) {
         this.eventos = eventos;
+        this.Lisener = lisener;
     }
 
     @NonNull
@@ -43,7 +45,10 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
         holder.asignarDatos(eventos.get(position));
-        holder.setOnClickLiseners();
+
+         holder.Apuntarse.setOnClickListener(Lisener);
+         holder.MasDetalles.setOnClickListener(Lisener);
+
     }
 
     @Override
@@ -53,7 +58,9 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
 
 
 
-    public class ViewHolderDatos extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+
+    public class ViewHolderDatos extends RecyclerView.ViewHolder{
         ImageView img;
         TextView NombreEvento;
         TextView DelegacionEvento;
@@ -63,8 +70,10 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
         Button Apuntarse;
         Button MasDetalles;
 
+
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
+
             img = itemView.findViewById(R.id.media_image);
             NombreEvento = itemView.findViewById(R.id.primary_text);
             DelegacionEvento = itemView.findViewById(R.id.sub_text);
@@ -90,25 +99,12 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
                     }
                 }
             });
-        }
-        @Override
-        public void onClick(View v) {
 
-        switch (v.getId())
-        {
-            case R.id.action_button_1:
-                ApuntarseFragment.vista.setVisibility(View.VISIBLE);
-                break;
-            case R.id.action_button_2:
-
-                Intent intento = new Intent(contexto, Detalles_activity.class);
-                contexto.startActivity(intento);
-                break;
 
         }
 
-        // ApuntarseFragment.vista.setVisibility(View.VISIBLE);
-        }
+
+
 
         public void asignarDatos(Evento evento) {
             NombreEvento.setText(evento.Nombre);
@@ -116,10 +112,6 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
             img.setImageResource(evento.Img);
         }
 
-        public void setOnClickLiseners() {
 
-            Apuntarse.setOnClickListener(this);
-            MasDetalles.setOnClickListener(this);
-        }
     }
 }

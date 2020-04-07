@@ -38,15 +38,12 @@
     </androidx.recyclerview.widget.RecyclerView>
     <!--- android:name="com.example.crisalisprototipoversionbuena.ApuntarseFragment"-->
     <!--- tools:layout="@layout/layout_apuntarse_fragment"-->
-    <fragment
-
-
-        android:id="@+id/fragmentcomprar"
+    <FrameLayout
+        android:id="@+id/FrameLayoutFragmentApuntarse"
         android:name="com.example.chrysalis.ApuntarseFragment"
         android:layout_width="0dp"
-
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

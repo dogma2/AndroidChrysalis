@@ -1,9 +1,12 @@
 package com.example.chrysalis;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
 
@@ -17,23 +20,13 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.material.slider.Slider;
+
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ApuntarseFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ApuntarseFragment#newInstance} factory method to
- * create an instance of this fragment.
+
  */
 public class ApuntarseFragment extends Fragment {
-    static View vista;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
 
 
     // TODO: Rename and change types of parameters
@@ -42,43 +35,32 @@ public class ApuntarseFragment extends Fragment {
 
 
     Button boton;
-    LinearLayout l;
+    View.OnClickListener Endlisener;
+
+
 
 
     private OnFragmentInteractionListener mListener;
 
-    public ApuntarseFragment() {
-        vista = this.getView();
+    public ApuntarseFragment(View.OnClickListener listener) {
 
+        Endlisener = listener;
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ApuntarseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ApuntarseFragment newInstance(String param1, String param2) {
 
-        ApuntarseFragment fragment = new ApuntarseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        */
+
     }
 
     @Override
@@ -86,59 +68,90 @@ public class ApuntarseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        vista = inflater.inflate(R.layout.layout_apuntarse_fragment, container, false);
+
+        //Definiendo atributos
+        View vista = inflater.inflate(R.layout.layout_apuntarse_fragment, container, false);
+
+        //vista.setVisibility(View.GONE);
+
+        LinearLayout Exterior  = vista.findViewById(R.id.LLFragmentApunt);
+        LinearLayout Interior = vista.findViewById(R.id.LL2FragmentApuntarse);
+
         boton = vista.findViewById(R.id.BotonApuntarse);
-        Switch botone = vista.findViewById(R.id.switcgFragment);
+        final Switch botone = vista.findViewById(R.id.switcgFragment);
 
-        l = vista.findViewById(R.id.LinearLayou);
-
-        l.setVisibility(View.GONE);
-
-
-        AppCompatSeekBar barra = vista.findViewById(R.id.NumeroDeInvitadosBarra);
+        final Slider barra = vista.findViewById(R.id.NumeroDeInvitadosBarra);
         final TextView NumeroDeInvitados = vista.findViewById(R.id.NumeroDeInv);
+
+        //Inicializando atributos
+
+        barra.setEnabled(false);
+        final ColorStateList startcolor = barra.getThumbColor();
+
         NumeroDeInvitados.setText("0");
 
-        barra.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        // OnclickLiseners
+        Interior.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            NumeroDeInvitados.setText(""+progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onClick(View v) {
 
             }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-
         });
-            botone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        Exterior.setOnClickListener(Endlisener);
+
+
+       barra.addOnChangeListener(new Slider.OnChangeListener() {
+           @Override
+           public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
+               NumeroDeInvitados.setText(""+value);
+
+           }
+       });
+
+       barra.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+           @Override
+           public void onStartTrackingTouch(@NonNull Slider slider) {
+
+           }
+
+           @Override
+           public void onStopTrackingTouch(@NonNull Slider slider) {
+                if(slider.getValue() == 0f)
+                {
+                    botone.setChecked(false);
+                }
+           }
+       });
+
+
+
+        botone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    l.setVisibility(View.VISIBLE);
+                    barra.setEnabled(true);
+                    barra.setThumbColor(ColorStateList.valueOf(Color.GREEN));
                 }
                 else
                 {
-                    l.setVisibility(View.GONE);
+                    barra.setValue(0f);
+                    barra.setEnabled(false);
+                    barra.setThumbColor(startcolor);
+
                 }
             }
         });
-        System.out.println(barra.getDrawableState());
 
+        boton.setOnClickListener(Endlisener);
 
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Invisible();
-            }
-        });
+        //Devolviendo la vista
         return vista;
+
+
+
+
     }
     public void Invisible()
     {
