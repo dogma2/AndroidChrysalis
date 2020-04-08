@@ -54,7 +54,7 @@ public class Detalles_activity extends AppCompatActivity  {
         scroll = findViewById(R.id.scrollViewMasDetalles);
 
 
-        
+
         scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
