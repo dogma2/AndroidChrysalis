@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSeekBar;
+
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -20,7 +20,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.slider.Slider;
+//import com.google.android.material.slider.Slider;
 
 
 /**
@@ -80,13 +80,14 @@ public class ApuntarseFragment extends Fragment {
         boton = vista.findViewById(R.id.BotonApuntarse);
         final Switch botone = vista.findViewById(R.id.switcgFragment);
 
-        final Slider barra = vista.findViewById(R.id.NumeroDeInvitadosBarra);
+        //final Slider barra = vista.findViewById(R.id.NumeroDeInvitadosBarra);
+        final SeekBar barra = vista.findViewById(R.id.NumeroDeInvitadosBarra);
         final TextView NumeroDeInvitados = vista.findViewById(R.id.NumeroDeInv);
 
         //Inicializando atributos
 
         barra.setEnabled(false);
-        final ColorStateList startcolor = barra.getThumbColor();
+        //final ColorStateList startcolor = barra.getThumbColor();
 
         NumeroDeInvitados.setText("0");
 
@@ -101,28 +102,23 @@ public class ApuntarseFragment extends Fragment {
         Exterior.setOnClickListener(Endlisener);
 
 
-       barra.addOnChangeListener(new Slider.OnChangeListener() {
+       barra.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
            @Override
-           public void onValueChange(@NonNull Slider slider, float value, boolean fromUser) {
-               NumeroDeInvitados.setText(""+value);
+           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+               NumeroDeInvitados.setText(""+progress);
+           }
+
+           @Override
+           public void onStartTrackingTouch(SeekBar seekBar) {
+
+           }
+
+           @Override
+           public void onStopTrackingTouch(SeekBar seekBar) {
 
            }
        });
 
-       barra.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-           @Override
-           public void onStartTrackingTouch(@NonNull Slider slider) {
-
-           }
-
-           @Override
-           public void onStopTrackingTouch(@NonNull Slider slider) {
-                if(slider.getValue() == 0f)
-                {
-                    botone.setChecked(false);
-                }
-           }
-       });
 
 
 
@@ -132,13 +128,13 @@ public class ApuntarseFragment extends Fragment {
                 if(isChecked)
                 {
                     barra.setEnabled(true);
-                    barra.setThumbColor(ColorStateList.valueOf(Color.GREEN));
+                    //barra.setThumbColor(ColorStateList.valueOf(Color.GREEN));
                 }
                 else
                 {
-                    barra.setValue(0f);
+                    //barra.setValue(0f);
                     barra.setEnabled(false);
-                    barra.setThumbColor(startcolor);
+                    //barra.setThumbColor(startcolor);
 
                 }
             }
