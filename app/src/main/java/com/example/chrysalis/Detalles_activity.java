@@ -3,6 +3,7 @@ package com.example.chrysalis;
 import android.app.admin.DeviceAdminInfo;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothClass;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+import java.util.ArrayList;
 
 public class Detalles_activity extends AppCompatActivity  {
 
@@ -73,7 +76,13 @@ public class Detalles_activity extends AppCompatActivity  {
             }
         });
 
-
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Detalles_activity.this, Ajustes_activity.class);
+                startActivity(i);
+            }
+        });
 }
 
     @Override
