@@ -2,17 +2,17 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="oval">
-            <stroke
-               android:width="2dp"
-                android:color="#4d4d4d"/>
-            <size
-                android:width="17dp"
-                android:height="17dp" />
-            <solid
-                android:color="#17ff83"
-                />
-        </shape>
+        android:shape="oval">
+        <stroke
+            android:width="2dp"
+            android:color="#00FFFFFF"/>
+        <size
+            android:width="17dp"
+            android:height="17dp" />
+        <solid
+            android:color="#00FFFFFF"
+            />
+    </shape>
     </item>
 
     <item

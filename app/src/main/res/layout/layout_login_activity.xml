@@ -6,28 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".Login_activity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/ToolBarLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#468549"
-        android:outlineAmbientShadowColor="#00000000"
-        android:outlineSpotShadowColor="#181818"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#668C40"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ToolBarLogin">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
@@ -80,11 +69,8 @@
                 android:fitsSystemWindows="false"
                 android:hint="Correo electrónico"
                 android:layoutMode="clipBounds"
-
                 android:showDividers="none"
-
                 android:visibility="visible"
-
                 app:boxBackgroundColor="#555454"
                 app:boxBackgroundMode="filled"
                 app:boxCornerRadiusBottomEnd="10dp"

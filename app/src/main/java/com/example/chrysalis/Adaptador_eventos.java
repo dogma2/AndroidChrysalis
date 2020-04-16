@@ -1,11 +1,14 @@
 package com.example.chrysalis;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -71,7 +74,7 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
         Button MasDetalles;
 
 
-        public ViewHolderDatos(@NonNull View itemView) {
+        public ViewHolderDatos(@NonNull final View itemView) {
             super(itemView);
 
             img = itemView.findViewById(R.id.media_image);
@@ -82,7 +85,7 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
 
             Apuntarse = itemView.findViewById(R.id.action_button_1);
             MasDetalles = itemView.findViewById(R.id.action_button_2);
-
+            final int tiempo = itemView.getResources().getInteger(android.R.integer.config_shortAnimTime);
             DescripcionEvento.setVisibility(View.GONE);
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,12 +93,14 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
                     if(DescripcionEvento.getVisibility() == View.VISIBLE)
                     {
                         imageButton.setImageResource(R.drawable.ic_expand_more_black_36dp);
+
                         DescripcionEvento.setVisibility(View.GONE);
                     }
                     else
                     {
                         imageButton.setImageResource(R.drawable.ic_expand_less_black_36dp);
                         DescripcionEvento.setVisibility(View.VISIBLE);
+
                     }
                 }
             });

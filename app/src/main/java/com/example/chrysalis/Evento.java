@@ -1,6 +1,9 @@
 package com.example.chrysalis;
 
 public class Evento {
+    int Id;
+    String CiudadEvento;
+
     String Nombre;
     String Descripcion;
     String Region;

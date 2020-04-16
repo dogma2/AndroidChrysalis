@@ -1,5 +1,7 @@
 package com.example.chrysalis;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.admin.DeviceAdminInfo;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothClass;
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -15,7 +18,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -24,9 +30,10 @@ import java.util.ArrayList;
 
 public class Detalles_activity extends AppCompatActivity  {
 
-    ScrollView scroll;
+    NestedScrollView scroll;
     int actualScroll;
-
+    private ObjectAnimator animacion;
+    ExtendedFloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +42,25 @@ public class Detalles_activity extends AppCompatActivity  {
         ImageView imagen = findViewById(R.id.imageViewEntrada);
         //final BottomNavigationView Menu = findViewById(R.id.MenuBar);
         TextView info = findViewById(R.id.textViewInfo);
-        final ExtendedFloatingActionButton floatingActionButton = findViewById(R.id.FlotingButtonMasDetalles);
+        floatingActionButton = findViewById(R.id.FlotingButtonMasDetalles);
+
+        MaterialToolbar barra = findViewById(R.id.materialToolbarMasDetalles);
+
+
+        setSupportActionBar(barra);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+        barra.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                System.out.println("click");
+                System.out.println(item.getItemId());
+                return true;
+            }
+        });
 
         String SuperString="";
         for(int cnt = 0; cnt < 100; cnt++)
@@ -57,7 +82,6 @@ public class Detalles_activity extends AppCompatActivity  {
         scroll = findViewById(R.id.scrollViewMasDetalles);
 
 
-
         scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
@@ -65,12 +89,15 @@ public class Detalles_activity extends AppCompatActivity  {
                 System.out.println(lastScroll);
                 if(actualScroll < lastScroll)
                 {
-                    floatingActionButton.setVisibility(View.GONE);
+                    floatingActionButton.hide();
+
                 }
                 else
                     {
-                        floatingActionButton.setVisibility(View.VISIBLE);
+                        floatingActionButton.show();
+                        //floatingActionButton.setVisibility(View.VISIBLE);
                 }
+
 
                 actualScroll = lastScroll;
             }
@@ -79,17 +106,32 @@ public class Detalles_activity extends AppCompatActivity  {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Detalles_activity.this, Ajustes_activity.class);
-                startActivity(i);
+
             }
         });
 }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.bottom_navigation_menu, menu);
-        return true;
+
+
+    public void SetAnimationDesaparecer()
+    {
+        animacion = ObjectAnimator.ofFloat(floatingActionButton, View.ALPHA, 1.0f, 0.0f);
+        animacion.setDuration(200);
+        AnimatorSet animatorSetAlpha = new AnimatorSet();
+        animatorSetAlpha.play(animacion);
+        animatorSetAlpha.start();
+
+        floatingActionButton.setVisibility(View.GONE);
+    }
+    public void SetAnimationAparecer()
+    {
+        floatingActionButton.setVisibility(View.VISIBLE);
+        animacion = ObjectAnimator.ofFloat(floatingActionButton, View.ALPHA, 0.0f, 1.0f);
+        animacion.setDuration(200);
+
+        AnimatorSet animatorSetAlpha = new AnimatorSet();
+        animatorSetAlpha.play(animacion);
+        animatorSetAlpha.start();
     }
 
     }

@@ -1,48 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#3F6F40"
-    tools:context=".Inicio_activity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#243D25"
-        android:outlineAmbientShadowColor="#00000000"
-        android:outlineSpotShadowColor="#181818"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_menu_black_24dp" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="match_parent"
+        android:background="#3F6F40"
 
-    </androidx.recyclerview.widget.RecyclerView>
-    <!--- android:name="com.example.crisalisprototipoversionbuena.ApuntarseFragment"-->
-    <!--- tools:layout="@layout/layout_apuntarse_fragment"-->
+        tools:context=".Inicio_activity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/Appbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3F6F40"
+            app:expanded="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:outlineAmbientShadowColor="#00000000"
+                android:outlineSpotShadowColor="#181818"
+                app:layout_scrollFlags="scroll" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            app:tr_headerView="50dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:overScrollMode="never"
+                android:visibility="visible" />
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+        <!--- android:name="com.example.crisalisprototipoversionbuena.ApuntarseFragment"-->
+        <!--- tools:layout="@layout/layout_apuntarse_fragment"-->
     <FrameLayout
         android:id="@+id/FrameLayoutFragmentApuntarse"
         android:name="com.example.chrysalis.ApuntarseFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:overScrollMode="always"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,4 +77,10 @@
         tools:layout="@layout/layout_apuntarse_fragment" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+

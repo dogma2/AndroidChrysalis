@@ -14,10 +14,13 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.ArrayList;
 
 public class Ajustes_activity extends AppCompatActivity //Falta implementar el onfragmentinteraction
 {
+
 
     SelectSpectsFragment SelectedFragment;
 
@@ -25,6 +28,10 @@ public class Ajustes_activity extends AppCompatActivity //Falta implementar el o
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_configuracion_activity);
+
+        MaterialToolbar toolbar = findViewById(R.id.ToolBarConfig);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Switch switchProvincias = findViewById(R.id.SwitchConfigProvincia);
         Switch switchAutonomias = findViewById(R.id.SwitchConfigAutonomia);

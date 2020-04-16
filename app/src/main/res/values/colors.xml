@@ -3,4 +3,22 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-</resources>
+
+
+
+    <color name="dogma2chrysallis_50">#edf1e8</color>
+    <color name="dogma2chrysallis_100">#d1ddc6</color>
+    <color name="dogma2chrysallis_200">#b3c6a0</color>
+    <color name="dogma2chrysallis_300">#94af79</color>
+    <color name="dogma2chrysallis_400">#7d9d5d</color>
+    <color name="dogma2chrysallis_500">#668c40</color>
+    <color name="dogma2chrysallis_600">#5e843a</color>
+    <color name="dogma2chrysallis_700">#537932</color>
+    <color name="dogma2chrysallis_800">#496f2a</color>
+    <color name="dogma2chrysallis_900">#336600</color>
+    <color name="dogma2chrysallis_A100">#c3ff9b</color>
+    <color name="dogma2chrysallis_A200">#a4ff68</color>
+    <color name="dogma2chrysallis_A400">#86ff35</color>
+    <color name="dogma2chrysallis_A700">#76ff1b</color>
+
+        </resources>

@@ -2,10 +2,17 @@ package com.example.chrysalis;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 /**
@@ -54,6 +61,10 @@ public class VerificarCodigoFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.layout_verificarcodigo_fragment, container, false);
         Button boton = v.findViewById(R.id.buttonVerificarCodigo);
+        final TextInputEditText textInputLayout =  v.findViewById(R.id.editTextCodigo);
+        String s;
+
+
 
         //En caso que el codigo sea correcto
         boton.setOnClickListener(Lisener);

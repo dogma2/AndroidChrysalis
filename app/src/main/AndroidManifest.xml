@@ -18,9 +18,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login_activity"/>
-        <activity android:name=".Inicio_activity"/>
-        <activity android:name=".Detalles_activity"/>
-        <activity android:name=".Ajustes_activity"/>
+        <activity android:name=".Inicio_activity" />
+
+        <activity android:name=".Detalles_activity"
+            android:parentActivityName=".Inicio_activity"/>
+
+        <activity android:name=".Ajustes_activity"
+            android:parentActivityName=".Inicio_activity"/>
     </application>
 
 </manifest>
