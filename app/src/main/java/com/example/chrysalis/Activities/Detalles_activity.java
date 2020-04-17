@@ -6,6 +6,7 @@ import android.app.admin.DeviceAdminInfo;
 import android.app.admin.DevicePolicyManager;
 import android.bluetooth.BluetoothClass;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
+import com.example.chrysalis.Fragments.ApuntarseFragment;
 import com.example.chrysalis.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
@@ -29,12 +31,14 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import java.util.ArrayList;
 
-public class Detalles_activity extends AppCompatActivity  {
+public class Detalles_activity extends AppCompatActivity  implements  ApuntarseFragment.OnFragmentInteractionListener {
 
-    NestedScrollView scroll;
-    int actualScroll;
+    private ApuntarseFragment apuntarseFragment;
+    private NestedScrollView scroll;
+    private int actualScroll;
     private ObjectAnimator animacion;
-    ExtendedFloatingActionButton floatingActionButton;
+    private ExtendedFloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +111,8 @@ public class Detalles_activity extends AppCompatActivity  {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                apuntarseFragment = new ApuntarseFragment(DisAtachLisener);
+                getSupportFragmentManager().beginTransaction().add(R.id.FrameLayoutFragmentApuntarse2,apuntarseFragment).commit();
             }
         });
 }
@@ -135,4 +140,21 @@ public class Detalles_activity extends AppCompatActivity  {
         animatorSetAlpha.start();
     }
 
+    View.OnClickListener DisAtachLisener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if(v.getId()==R.id.BotonApuntarse)
+            {
+                //Fer algo aqui
+            }
+            getSupportFragmentManager().beginTransaction().remove(apuntarseFragment).commit();
+
+        }
+    };
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        
     }
+}

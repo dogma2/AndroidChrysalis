@@ -29,6 +29,7 @@ private static boolean IsOnlyUserDelegacion = false;
     {
         return IsOnlyUserDelegacion;
     }
+    public static void SetIsOnlyUserDelegation(boolean isOnlyUserDelegacion){IsOnlyUserDelegacion = isOnlyUserDelegacion;}
 
     public static ArrayList<String> GetProvincias()
     {
