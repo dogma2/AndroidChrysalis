@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.12"
-        app:srcCompat="@drawable/ic_insert_emoticon_black_24dp" />
+        app:srcCompat="@drawable/ic_people_black_24dp" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
