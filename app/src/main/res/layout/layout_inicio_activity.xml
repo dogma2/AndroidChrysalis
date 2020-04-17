@@ -8,9 +8,38 @@
         android:layout_height="match_parent"
         android:background="#3F6F40"
 
-        tools:context=".Inicio_activity">
+        tools:context=".Activities.Inicio_activity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:clickable="true"
+        android:scaleType="center"
+        app:backgroundTint="#3F6F40"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
+        app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:scaleType="centerInside"
+        app:backgroundTint="#3F6F40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.99"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.12"
+        app:srcCompat="@drawable/ic_insert_emoticon_black_24dp" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -31,9 +60,9 @@
                 android:layout_height="wrap_content"
                 android:outlineAmbientShadowColor="#00000000"
                 android:outlineSpotShadowColor="#181818"
-                app:layout_scrollFlags="scroll" />
+                app:layout_scrollFlags="scroll"
+                app:menu="@menu/bottom_navigation_menu" />
         </com.google.android.material.appbar.AppBarLayout>
-
 
 
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
@@ -53,8 +82,8 @@
                 android:layout_marginRight="5dp"
                 android:overScrollMode="never"
                 android:visibility="visible" />
-        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

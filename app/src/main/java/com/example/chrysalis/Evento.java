@@ -3,10 +3,12 @@ package com.example.chrysalis;
 public class Evento {
     int Id;
     String CiudadEvento;
-
     String Nombre;
     String Descripcion;
-    String Region;
+    String DatosInteres;
+    Integer Imagen;
+    Integer Documentos;
+
     String Hora;
     int Img;
     String delegacion;
@@ -22,5 +24,17 @@ public class Evento {
         Descripcion = descripcion;
         Img = img;
         delegacion = "Crysalis cat";
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public int getImg() {
+        return Img;
     }
 }

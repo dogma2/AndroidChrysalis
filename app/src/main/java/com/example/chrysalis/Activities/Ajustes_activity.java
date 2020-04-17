@@ -1,22 +1,16 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Activities;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chrysalis.R;
+import com.example.chrysalis.Fragments.SelectSpectsFragment;
 import com.google.android.material.appbar.MaterialToolbar;
-
-import java.util.ArrayList;
 
 public class Ajustes_activity extends AppCompatActivity //Falta implementar el onfragmentinteraction
 {

@@ -1,4 +1,4 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Activities;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
+import com.example.chrysalis.R;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

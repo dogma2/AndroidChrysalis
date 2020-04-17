@@ -38,6 +38,7 @@
             android:text="Crysalis Cat"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/design_default_color_primary"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/avatar_image1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatar_image1"
@@ -57,6 +58,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/cirucloshape" />
+
         <ImageView
             android:id="@+id/avatar_image2"
             android:layout_width="48dp"
@@ -65,12 +67,12 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
             android:padding="4dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/media_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/circuloconico" />
+            app:srcCompat="@drawable/chrysallis_logo2" />
 
         <TextView
             android:id="@+id/sub_text"

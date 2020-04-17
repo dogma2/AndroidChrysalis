@@ -1,4 +1,4 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Fragments;
 
 import android.os.Bundle;
 
@@ -10,7 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
+
+import com.example.chrysalis.Adaptadores_ItemsDecorations.Adaptador_Addconfig;
+import com.example.chrysalis.GetInfo;
+import com.example.chrysalis.R;
+
+import java.util.ArrayList;
 
 
 public class SelectSpectsFragment extends Fragment {
@@ -24,6 +31,9 @@ public class SelectSpectsFragment extends Fragment {
     private int ObjectType;
     private View.OnClickListener Lisener;
 
+    public int getObjectType() {
+        return ObjectType;
+    }
 
     public SelectSpectsFragment(int objectType, View.OnClickListener lisener) {
         // Required empty public constructor
@@ -37,6 +47,26 @@ public class SelectSpectsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("Me destruyoo");
+        ArrayList<String> Lista = ((Adaptador_Addconfig) recyclerView.getAdapter()).getActualListaUser();
+        switch(ObjectType)
+        {
+            case ISPROVINCIA:
+                GetInfo.setProvinciasUser(Lista);
+                break;
+            case ISAUTONOMIA:
+                GetInfo.setAutonomiasUser(Lista); //
+                break;
+            case ISDELEGACION:
+                GetInfo.setDelegacionesUser(Lista);
+                break;
+        }
 
     }
 
@@ -57,6 +87,7 @@ public class SelectSpectsFragment extends Fragment {
             case ISPROVINCIA:
                 texto.setText("Provincias Disponibles: ");
                 adaptador = new Adaptador_Addconfig(GetInfo.GetProvinciasUser(), GetInfo.GetProvincias() );
+
                 break;
             case ISAUTONOMIA:
                 texto.setText("Comunidades Autonomas Disponibles: ");

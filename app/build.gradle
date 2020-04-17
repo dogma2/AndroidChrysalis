@@ -22,7 +22,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //implementation 'me.everything:overscroll-decor-android:1.0.4'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
     implementation 'com.google.android.material:material:1.1.0-rc02'
     implementation "androidx.cardview:cardview:1.0.0"

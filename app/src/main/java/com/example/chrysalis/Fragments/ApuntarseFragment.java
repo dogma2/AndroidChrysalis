@@ -1,4 +1,4 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Fragments;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.example.chrysalis.R;
 
 //import com.google.android.material.slider.Slider;
 

@@ -1,8 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/nav_configuracion"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_add_black_24dp"
         android:menuCategory="container"
         android:title="Datos de Interes"
         app:showAsAction="always" />
@@ -15,34 +16,26 @@
         <menu>
             <item
                 android:id="@+id/subm_fecha"
-                android:icon="@drawable/ic_settings_black_24dp"
                 android:menuCategory="container"
                 android:title="Por Fecha"
                 app:showAsAction="withText" />
             <item
                 android:id="@+id/subm_provin"
-                android:icon="@drawable/ic_settings_black_24dp"
                 android:menuCategory="secondary"
                 android:title="Por Provincias"
                 app:showAsAction="withText" />
             <item
                 android:id="@+id/subm_Comunidades"
-                android:icon="@drawable/ic_settings_black_24dp"
                 android:menuCategory="secondary"
                 android:title="Por Comunidad"
                 app:showAsAction="withText" />
             <item
                 android:id="@+id/subm_delegaciones"
-                android:icon="@drawable/ic_settings_black_24dp"
                 android:menuCategory="secondary"
                 android:title="Por Delegacion"
                 app:showAsAction="withText" />
         </menu>
     </item>
-    <item
-        android:id="@+id/nav_datosInteres"
-        android:icon="@drawable/ic_insert_emoticon_black_24dp"
-        android:title="Configuracion"
-        app:showAsAction="always" />
+
 
 </menu>

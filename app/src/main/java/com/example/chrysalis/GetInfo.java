@@ -4,6 +4,31 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GetInfo {
+private static boolean IsOnlyUserDelegacion = false;
+
+    private static ArrayList<String> DelegacionesUser = new ArrayList<String>(); //Primero se carga de aqui i despues se cargara del JSON
+    private static ArrayList<String> ComunidadesUser = new ArrayList<String>();
+    private static ArrayList<String> ProvinciasUser = new ArrayList<String>();
+
+    public static void setDelegacionesUser(ArrayList<String> delegacionesUser) {
+        DelegacionesUser = delegacionesUser;
+    }
+
+    public static void setAutonomiasUser(ArrayList<String> comunidadesUser) {
+        ComunidadesUser = comunidadesUser;
+    }
+
+    public static void setProvinciasUser(ArrayList<String> provinciasUser) {
+        ProvinciasUser = provinciasUser;
+    }
+
+
+
+    public static String GetHashLCode() {return "CODIGO"; }
+    public static boolean GetIsOnlyUserDelegacion()
+    {
+        return IsOnlyUserDelegacion;
+    }
 
     public static ArrayList<String> GetProvincias()
     {
@@ -98,24 +123,15 @@ public class GetInfo {
     }
     public static ArrayList<String> GetDelegacionesUser()
     {
-        ArrayList<String> lista = new ArrayList<String>();
-        lista.add("barcelona");
-
-        return lista;
+        return DelegacionesUser;
     }
     public static ArrayList<String> GetProvinciasUser()
     {
-        ArrayList<String> lista = new ArrayList<String>();
-        lista.add("barcelona");
-
-        return lista;
+        return ProvinciasUser;
     }
     public static ArrayList<String> GetComunidadesUser()
     {
-        ArrayList<String> lista = new ArrayList<String>();
-        lista.add("barcelona");
-
-        return lista;
+       return ComunidadesUser;
     }
     public static String GetTerminosDeUso()
     {

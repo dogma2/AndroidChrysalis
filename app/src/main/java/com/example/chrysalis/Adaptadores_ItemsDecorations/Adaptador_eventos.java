@@ -1,14 +1,10 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Adaptadores_ItemsDecorations;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.chrysalis.Evento;
+import com.example.chrysalis.GetInfo;
+import com.example.chrysalis.R;
 
 import java.util.ArrayList;
 
@@ -26,9 +25,8 @@ import java.util.ArrayList;
 public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.ViewHolderDatos> {
 
     ArrayList<Evento> eventos;
-    Context contexto;
     View.OnClickListener Lisener;
-
+    Boolean UserOnlyDelegation = GetInfo.GetIsOnlyUserDelegacion();
 
 
     public Adaptador_eventos(ArrayList<Evento> eventos, View.OnClickListener lisener) {
@@ -36,12 +34,23 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
         this.Lisener = lisener;
     }
 
+
+
     @NonNull
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_eventos, parent,false);
-        contexto = view.getContext();
-        return new ViewHolderDatos(view);
+        if(UserOnlyDelegation)
+        {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_evento_v2s, parent,false);
+            return new ViewHolderDatos(view);
+
+        }
+        else
+        {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_eventos, parent,false);
+            return new ViewHolderDatos(view);
+        }
+
 
     }
 
@@ -76,7 +85,10 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
 
         public ViewHolderDatos(@NonNull final View itemView) {
             super(itemView);
+            if(UserOnlyDelegation)
+            {
 
+            }
             img = itemView.findViewById(R.id.media_image);
             NombreEvento = itemView.findViewById(R.id.primary_text);
             DelegacionEvento = itemView.findViewById(R.id.sub_text);
@@ -109,12 +121,10 @@ public class Adaptador_eventos extends RecyclerView.Adapter<Adaptador_eventos.Vi
         }
 
 
-
-
         public void asignarDatos(Evento evento) {
-            NombreEvento.setText(evento.Nombre);
-            DescripcionEvento.setText(evento.Descripcion);
-            img.setImageResource(evento.Img);
+            NombreEvento.setText(evento.getNombre());
+            DescripcionEvento.setText(evento.getDescripcion());
+            img.setImageResource(evento.getImg());
         }
 
 

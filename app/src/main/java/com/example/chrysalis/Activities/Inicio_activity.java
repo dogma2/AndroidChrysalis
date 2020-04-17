@@ -1,44 +1,50 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
+import android.widget.Toast;
 
 
+import com.example.chrysalis.Adaptadores_ItemsDecorations.Adaptador_eventos;
+import com.example.chrysalis.Fragments.ApuntarseFragment;
+import com.example.chrysalis.Adaptadores_ItemsDecorations.DecoreItem_Adaptador_eventos;
+import com.example.chrysalis.Evento;
+import com.example.chrysalis.GetInfo;
+import com.example.chrysalis.Adaptadores_ItemsDecorations.ItemDecorationRe;
+import com.example.chrysalis.R;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.navigation.NavigationView;
-import com.lcodecore.tkrefreshlayout.IBottomView;
-import com.lcodecore.tkrefreshlayout.OnGestureListener;
-import com.lcodecore.tkrefreshlayout.PullListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
-import com.lcodecore.tkrefreshlayout.processor.IDecorator;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.zip.InflaterInputStream;
 
 
-
-public class Inicio_activity extends AppCompatActivity implements ApuntarseFragment.OnFragmentInteractionListener{ //Load_Activitys.OnFragmentInteractionListener{
+public class Inicio_activity extends AppCompatActivity implements ApuntarseFragment.OnFragmentInteractionListener { //Load_Activitys.OnFragmentInteractionListener{
 
   private RecyclerView recyclerView;
   private ApuntarseFragment apuntarseFragment;
@@ -46,6 +52,14 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
   private Toolbar myToolbar;
   private AppBarLayout appBarLayout;
   private ArrayList<Evento> Eventos;
+
+  private FloatingActionButton configuracion;
+  private FloatingActionButton datosInteres;
+  private boolean FloatingButtonsDesplegados;
+  private MenuItem ItemImg;
+
+  private int cnt = 0;
+
 
   private int AlturaBarra;
 
@@ -55,18 +69,27 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
     setContentView(R.layout.layout_inicio_activity);
 
 
-    myToolbar = (Toolbar) findViewById(R.id.materialToolbar);
+    myToolbar = findViewById(R.id.materialToolbar);
     appBarLayout = findViewById(R.id.Appbarlayout);
     recyclerView = findViewById(R.id.recycler_view);
 
     TwinklingRefreshLayout layout = findViewById(R.id.refreshLayout);
 
     setSupportActionBar(myToolbar);
-
-
-    myToolbar.inflateMenu(R.menu.bottom_navigation_menu);
-
     myToolbar.setOnMenuItemClickListener(ItemLisener);
+
+
+    configuracion = findViewById(R.id.floatingActionButton);
+    datosInteres = findViewById(R.id.floatingActionButton2);
+
+    configuracion.setVisibility(View.GONE);
+    datosInteres.setVisibility(View.GONE);
+    FloatingButtonsDesplegados = false;
+
+
+    configuracion.setOnClickListener(FloatingButtomsListener);
+    datosInteres.setOnClickListener(FloatingButtomsListener);
+
 
 
 
@@ -79,19 +102,14 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
     recyclerView.addItemDecoration(view_decoreItem);
 
 
-
-
     ProgressLayout headerView = new ProgressLayout(this);
     layout.setHeaderView(headerView);
-
-
     layout.setOnRefreshListener(RefreshLisener);
 
 
 
-    //appBarLayout.setExpanded(true);
 
-    System.out.println(appBarLayout.getMeasuredHeight());
+
     appBarLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
       @Override
       public void onGlobalLayout() {
@@ -100,7 +118,23 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
         System.out.println("AQUI ESTIC ");
         System.out.println(appBarLayout.getHeight());
 
-        recyclerView.addItemDecoration(new ItemDecorationRe(appBarLayout.getHeight()));
+
+      }
+    });
+
+    recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+      @Override
+      public void onScrollChanged() {
+        if(FloatingButtonsDesplegados)
+        {
+          configuracion.hide();
+          datosInteres.hide();
+          FloatingButtonsDesplegados = false;
+          ItemImg.setIcon(R.drawable.ic_add_black_24dp);
+        }
+
+
+
       }
     });
 
@@ -122,6 +156,9 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+    ItemImg = menu.getItem(1);
+
+    recyclerView.addItemDecoration(new ItemDecorationRe(appBarLayout.getHeight()));
     return true;
   }
 
@@ -233,13 +270,22 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
       public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId())
         {
-          case R.id.nav_configuracion:
-            Intent i = new Intent(Inicio_activity.this, Ajustes_activity.class);
-            startActivity(i);
-            break;
+          case R.id.nav_more:
+            if(FloatingButtonsDesplegados)
+            {
+              item.setIcon(R.drawable.ic_add_black_24dp);
+              FloatingButtonsDesplegados = false;
+              configuracion.hide();
+              datosInteres.hide();
 
-          case R.id.nav_datosInteres:
-
+            }
+            else
+            {
+              item.setIcon(R.drawable.ic_remove_black_24dp);
+              FloatingButtonsDesplegados = true;
+              configuracion.show();
+              datosInteres.show();
+            }
             break;
 
           case R.id.nav_sort:
@@ -249,6 +295,53 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
         return true;
       }
     };
+  View.OnClickListener FloatingButtomsListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+      switch (v.getId())
+      {
+        case R.id.floatingActionButton:
 
+          break;
+
+        case R.id.floatingActionButton2: //Configuracion
+          Intent i = new Intent(Inicio_activity.this, Ajustes_activity.class);
+          startActivity(i);
+          break;
+      }
+    }
+  };
+
+  @Override
+  public void onBackPressed() {
+    if(cnt == 0)
+    {
+      Toast.makeText(getApplicationContext(), "Presione de Nuevo para Salir",Toast.LENGTH_SHORT).show();
+      CountDownTimer c = countDownTimer;
+      c.start();
+      cnt++;
+    }
+    else if(cnt == 1)
+    {
+      //finish();
+      //System.exit(0);
+      Intent intent = new Intent(getApplicationContext(), Load_Activity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      intent.putExtra("EXIT", true);
+      startActivity(intent);
+    }
+  }
+
+  private CountDownTimer countDownTimer = new CountDownTimer(3000,1000) {
+    @Override
+    public void onTick(long millisUntilFinished) {
+      System.out.println(millisUntilFinished);
+    }
+
+    @Override
+    public void onFinish() {
+      cnt = 0;
+    }
+  };
 
 }

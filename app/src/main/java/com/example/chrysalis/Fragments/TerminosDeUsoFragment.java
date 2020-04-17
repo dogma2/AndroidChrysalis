@@ -1,4 +1,4 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.chrysalis.GetInfo;
+import com.example.chrysalis.R;
 
 import org.w3c.dom.Text;
 
@@ -52,7 +55,7 @@ public class TerminosDeUsoFragment extends Fragment {
         View v =inflater.inflate(R.layout.layout_terminosdeuso_fragment, container, false);
         TextView texto = v.findViewById(R.id.textViewTerminosDeUso);
         final Button boton = v.findViewById(R.id.buttonTerminosDeUso);
-
+        v.setOnClickListener(null);
         CheckBox checkBox = v.findViewById(R.id.checkBox);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

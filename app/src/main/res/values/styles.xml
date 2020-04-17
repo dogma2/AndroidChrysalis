@@ -7,5 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="Estolo" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:actionButtonStyle">@style/ActionButton</item>
 
+    </style>
+    <style name="ActionButton" parent="@android:style/Widget.ActionButton">
+        <item name="android:drawable">@dimen/action_button_padding</item>
+    </style>
+
+    <dimen name="action_button_padding">5dp</dimen>
 </resources>

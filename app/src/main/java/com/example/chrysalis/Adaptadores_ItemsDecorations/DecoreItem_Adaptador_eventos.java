@@ -1,4 +1,4 @@
-package com.example.chrysalis;
+package com.example.chrysalis.Adaptadores_ItemsDecorations;
 
 import android.graphics.Rect;
 import android.view.View;
