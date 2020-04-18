@@ -5,4 +5,10 @@ public class Provincias {
     String nombre;
     int idccaa;
 
+
+    public Provincias(int id, String nombre, int idccaa) {
+        Id = id;
+        this.nombre = nombre;
+        this.idccaa = idccaa;
+    }
 }

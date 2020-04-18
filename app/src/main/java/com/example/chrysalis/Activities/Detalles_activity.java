@@ -155,6 +155,6 @@ public class Detalles_activity extends AppCompatActivity  implements  ApuntarseF
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        
+
     }
 }
