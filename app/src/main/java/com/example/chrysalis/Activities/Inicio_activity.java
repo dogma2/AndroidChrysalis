@@ -53,6 +53,8 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
   private AppBarLayout appBarLayout;
   private ArrayList<Evento> Eventos;
 
+
+
   private FloatingActionButton configuracion;
   private FloatingActionButton datosInteres;
   private boolean FloatingButtonsDesplegados;
