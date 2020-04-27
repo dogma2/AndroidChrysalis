@@ -147,19 +147,5 @@ private static boolean IsOnlyUserDelegacion = false;
                 "Suspendisse consectetur metus ac consectetur viverra. Sed gravida, sapien eget vulputate varius, purus elit varius nisi, ac aliquet tortor metus in sapien. Aliquam feugiat rutrum sapien id rhoncus. Aenean ac tristique dui. Vivamus lacinia luctus dui, et eleifend arcu. Nullam dignissim fringilla lectus id feugiat. Nam laoreet est sed dui blandit, nec posuere mauris blandit. Fusce vestibulum arcu a leo finibus, quis luctus tortor consectetur. Vestibulum vel augue feugiat, sagittis nulla sit amet, maximus diam. Phasellus ac orci in massa interdum imperdiet id convallis ex.";
     }
 
-    public static ArrayList<Evento> GetEventos()
-    {
-        ArrayList<Evento> eventos = new ArrayList<Evento>();
-        Evento e = new Evento("Dia de Playa","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat ante nunc, at tincidunt ex fermentum eu. Cras quis ultricies erat. Vestibulum in elementum lacus. Donec lacinia eros ac mi feugiat, sit amet egestas ipsum maximus. Nullam blandit vestibulum semper. Quisque sapien lorem, eleifend ut vestibulum vitae, iaculis vitae magna. Phasellus a varius mauris. In et neque semper quam euismod vulputate. Aliquam aliquet est vel lectus dignissim tempus. Praesent egestas malesuada nulla ut maximus. Morbi id fringilla odio, a mattis risus.",R.drawable.calabazas);
-        Evento e2 = new Evento("Excursion a la Montaña", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat ante nunc, at tincidunt ex fermentum eu. Cras quis ultricies erat. Vestibulum in elementum lacus. Donec lacinia eros ac mi feugiat, sit amet egestas ipsum maximus. Nullam blandit vestibulum semper. Quisque sapien lorem, eleifend ut vestibulum vitae, iaculis vitae magna. Phasellus a varius mauris. In et neque semper quam euismod vulputate. Aliquam aliquet est vel lectus dignissim tempus. Praesent egestas malesuada nulla ut maximus. Morbi id fringilla odio, a mattis risus.",R.drawable.calabazas);
-        Evento e3 = new Evento("Excursion a la Nieve","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat ante nunc, at tincidunt ex fermentum eu. Cras quis ultricies erat. Vestibulum in elementum lacus. Donec lacinia eros ac mi feugiat, sit amet egestas ipsum maximus. Nullam blandit vestibulum semper. Quisque sapien lorem, eleifend ut vestibulum vitae, iaculis vitae magna. Phasellus a varius mauris. In et neque semper quam euismod vulputate. Aliquam aliquet est vel lectus dignissim tempus. Praesent egestas malesuada nulla ut maximus. Morbi id fringilla odio, a mattis risus.",R.drawable.calabazas);
-        Evento e4 = new Evento("Feria de Calabazas","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat ante nunc, at tincidunt ex fermentum eu. Cras quis ultricies erat. Vestibulum in elementum lacus. Donec lacinia eros ac mi feugiat, sit amet egestas ipsum maximus. Nullam blandit vestibulum semper. Quisque sapien lorem, eleifend ut vestibulum vitae, iaculis vitae magna. Phasellus a varius mauris. In et neque semper quam euismod vulputate. Aliquam aliquet est vel lectus dignissim tempus. Praesent egestas malesuada nulla ut maximus. Morbi id fringilla odio, a mattis risus.",R.drawable.calabazas);
 
-        eventos.add(e);
-        eventos.add(e2);
-        eventos.add(e3);
-        eventos.add(e4);
-
-        return eventos;
-    }
 }

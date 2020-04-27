@@ -47,22 +47,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/Appbarlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#3F6F40"
-            app:expanded="true">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/materialToolbar"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/Appbarlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:outlineAmbientShadowColor="#00000000"
-                android:outlineSpotShadowColor="#181818"
-                app:layout_scrollFlags="scroll"
-                app:menu="@menu/bottom_navigation_menu" />
-        </com.google.android.material.appbar.AppBarLayout>
+                android:background="#A2DCA4"
+                app:expanded="true">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/materialToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:outlineAmbientShadowColor="#00000000"
+                    android:outlineSpotShadowColor="#181818"
+                    app:layout_scrollFlags="scroll"
+                    app:menu="@menu/bottom_navigation_menu" />
+            </com.google.android.material.appbar.AppBarLayout>
 
 
         <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout

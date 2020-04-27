@@ -53,18 +53,25 @@ public class Public_Methods {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - READ FILE TO STRING //
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ejecucion de instalacion de datos por APPCTIVE ->
-    public static boolean callFilesWork(boolean option)
+
+    /*
+    public static boolean callFilesWork(boolean IsAActivation)
     {
+
         boolean isOK = false;
 
         Log.wtf("MAGOMO", "callFilesWork -> calling unpackZip");
 
         // - - - - - Ejecuta descompresion de archivo ZIP
-        if ( isOK = unpackZip( option ) ) {
+        if (  )
+        {
             Log.wtf("MaGoMo >> ", "unpackZip activacion -> DATA SAVE OK" );
-        } else {
+        }
+        else
+        {
             Log.wtf("MaGoMo >> ", "unpackZip activacion -> DATA SAVE ERROR" );
         }
+
         // - - - - / Ejecuta descompresion de archivo ZIP
 
         Log.wtf("MAGOMO", "callFilesWork -> calling ActivateFileCopy");
@@ -81,7 +88,7 @@ public class Public_Methods {
         }
         // - - - - - Si descompresion OK, ejecuta copia de archivos
         return isOK;
-    }
+    }*/
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ejecucion de instalacion de datos por APPCTIVE //
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - copia de archivos de activaciom ->
@@ -143,7 +150,7 @@ public class Public_Methods {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - copia de archivos de activaciom //
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - copia de archivos de activaciom ->
-    private static boolean ActivateFileCopy() {
+    public static boolean ActivateFileCopy() {
         boolean retu = true;
         File tmpFile, tmpFileZip;
         // - - - - - - - - - - config.json
@@ -177,6 +184,8 @@ public class Public_Methods {
         // - - - - - - - - - - provincias.json
         tmpFile = new File(PROVINCIAS_JSON); tmpFileZip = new File(PROVINCIAS_ZIP);
         if (!copyFile(tmpFileZip, tmpFile)) { retu = false; Log.wtf("MaGoMo >> ","ActivateFileCopy -> Error copia " + PROVINCIAS_JSON); }
+
+
 
         return retu;
     }
@@ -226,83 +235,96 @@ public class Public_Methods {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - copiar archivos //
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de DESCOMPRESION de archivo ZIP ->
-    private static boolean unpackZip(boolean option)
+    private  static void CrearDirectorios()
     {
-        boolean retu = true, isOK = true;
-        String mensaje;
-        File fmd;
-        File thepath;
+        if ( new File(DIR_MASTER).mkdir() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_MASTER + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_MASTER + " ERROR !" ); }
+
+        if ( new File( DIR_CONFIG ).mkdir() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_CONFIG + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_CONFIG + " ERROR !" ); }
+
+        if ( new File (DIR_XTRAS).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_XTRAS + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_XTRAS + " ERROR !" ); }
+
+        if ( new File (DIR_DATAS).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_DATAS + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_DATAS + " ERROR !" ); }
+
+        if ( new File (DIR_IMAGES).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_IMAGES + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_IMAGES + " ERROR !" ); }
+
+        if ( new File (DIR_WORK).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_WORK + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_WORK + " ERROR !" ); }
+
+        if ( new File (DIR_ZIPPED).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_ZIPPED + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_ZIPPED + " ERROR !" ); }
+
+        if ( new File (DIR_UNZIPPED).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_UNZIPPED + " OK !" ); }
+        else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_UNZIPPED + " ERROR !" ); }
+    }
+
+    public static boolean unZipInstalation(String correo, String imei)
+    {
+        boolean isOK = true;
 
         Log.wtf("MaGoMo >> ", "unpackZip -> Start");
 
-        String ZipFile;
+        // option true = instalacion
 
-        if (!option) { // option true = instalacion
+        Log.wtf("MaGoMo >> ", "unpackZip -> instalacion");
+        String NombreZip = "appctivate.zip";
 
-            Log.wtf("MaGoMo >> ", "unpackZip -> instalacion");
-
-            ZipFile = "appctivate.zip";
-
-            if ( !(new File(DIR_MASTER).exists())) {
-
-                Log.wtf("MaGoMo >> ", "unpackZip -> DIR_MASTER NOT exists");
-                // crea estructura de carpetas
-
-                if ( new File(DIR_MASTER).mkdir() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_MASTER + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_MASTER + " ERROR !" ); }
-
-                if ( new File( DIR_CONFIG ).mkdir() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_CONFIG + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_CONFIG + " ERROR !" ); }
-
-                if ( new File (DIR_XTRAS).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_XTRAS + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_XTRAS + " ERROR !" ); }
-
-                if ( new File (DIR_DATAS).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_DATAS + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_DATAS + " ERROR !" ); }
-
-                if ( new File (DIR_IMAGES).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_IMAGES + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_IMAGES + " ERROR !" ); }
-
-                if ( new File (DIR_WORK).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_WORK + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_WORK + " ERROR !" ); }
-
-                if ( new File (DIR_ZIPPED).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_ZIPPED + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_ZIPPED + " ERROR !" ); }
-
-                if ( new File (DIR_UNZIPPED).mkdirs() ) { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_UNZIPPED + " OK !" ); }
-                else { Log.wtf("MaGoMo >> ", "unpackZip -> crear directorio " + DIR_UNZIPPED + " ERROR !" ); }
-
-            }
-            else { Log.wtf("MaGoMo >> ", "unpackZip -> DIR_MASTER NO exists"); }
-
-            // - - - - - - - - - - CALL URL
-            isOK = callingAPI(option);
-
-            Log.wtf("MaGoMo >> ", "unpackZip -> callingAPI (1): " + isOK);
-
-        } else { // option false = actualizacion
-
-            Log.wtf("MaGoMo >> ", "unpackZip -> actualizacion");
-
-            ZipFile = "appdate.zip";
-            // - - - - - elimina contenidos de directorios
-            delDirContents( DIR_MASTER, 0 );
-
-            // - - - - - - - - - - CALL URL
-            isOK = callingAPI(option);
-
-            Log.wtf("MaGoMo >> ", "unpackZip -> callingAPI (2): " + isOK);
+        if ( !(new File(DIR_MASTER).exists()))
+        {
+        //Log.wtf("MaGoMo >> ", "unpackZip -> DIR_MASTER NOT exists");
+        CrearDirectorios();
 
         }
+        //else { Log.wtf("MaGoMo >> ", "unpackZip -> DIR_MASTER NO exists"); }
 
-        if (isOK) {
+        // - - - - - - - - - - CALL URL
+        isOK = callingAPIToActivation(correo,imei);
+
+        //Log.wtf("MaGoMo >> ", "unpackZip -> callingAPI (1): " + isOK);
+        unpackZipGeneral(isOK, NombreZip);
 
 
-            Uri fileUri = Uri.fromFile( new File(DIR_ZIPPED + ZipFile));
+        return isOK;
+    }
+    public static boolean unZipUpdate(String update)
+    {
+        boolean retu = true;
+        Boolean isOK = true;
+        //Log.wtf("MaGoMo >> ", "unpackZip -> Start");
+        //Log.wtf("MaGoMo >> ", "unpackZip -> actualizacion");
 
+        String NombreZip = "appdate.zip";
+
+            // - - - - - elimina contenidos de directorios
+        delDirContents( DIR_MASTER, 0 );
+
+            // - - - - - - - - - - CALL URL
+        isOK = callingAPIToUpdate(update);
+
+        Log.wtf("MaGoMo >> ", "unpackZip -> callingAPI (2): " + isOK);
+
+        unpackZipGeneral(isOK, NombreZip);
+        return isOK;
+    }
+
+    private static void unpackZipGeneral(boolean isOk, String NombreZip)
+    {
+
+        if (isOk) {
+
+
+            Uri fileUri = Uri.fromFile( new File(DIR_ZIPPED + NombreZip));
+
+            File fmd;
+            String filename;
+            String mensaje;
             // control try - catch
             try {
-                String filename;
+
                 InputStream inputStream = mainContext.getContentResolver().openInputStream( fileUri );
                 ZipInputStream bufferedInputStream = new ZipInputStream( new BufferedInputStream( inputStream ) );
 
@@ -318,7 +340,7 @@ public class Public_Methods {
                     // lee entrada en archivo comprimido
                     filename = zipEntry.getName();
 
-                    Log.wtf("MaGoMo >> ", "unpackZip -> entry name = " + DIR_UNZIPPED + ZipFile );
+                    Log.wtf("MaGoMo >> ", "unpackZip -> entry name = " + DIR_UNZIPPED + NombreZip );
 
                     if ( zipEntry.isDirectory() )
                     {
@@ -349,15 +371,13 @@ public class Public_Methods {
 
             }
             catch(IOException e) {
-                e.printStackTrace(); isOK = false;
+                e.printStackTrace(); isOk = false;
                 Log.wtf("MaGoMo >> ", "unpackZip -> IOException: " + e.getMessage() );
             }
 
             Log.wtf("MaGoMo >> ", "unpackZip -> salida" );
 
         }
-
-        return isOK;
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de DESCOMPRESION de archivo ZIP ->
 
@@ -400,7 +420,73 @@ public class Public_Methods {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de ELIMINACION de DIRECTORIO ->
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de LLAMADA URL ->
-    private static boolean callingAPI(boolean option) {
+
+    private static boolean callingAPIToActivation(String email, String Imei) {
+        boolean retu = true;
+
+        String ZipFile = "";
+        URL urlapi = null;
+        HttpURLConnection urlConnection;
+
+        Log.wtf("MaGoMo >> ", "callingAPI -> start" );
+
+        try {
+
+             // activacion
+            urlapi = new URL(URL_ACTIVATE + email + "/" + Imei);
+            ZipFile = "appctivate.zip";
+
+
+            // agregado MaGoMo 2020.04.19 ->
+            if (android.os.Build.VERSION.SDK_INT > 9) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+
+            }
+            // agregado MaGoMo 2020.04.19 //
+
+            byte[] buffer = null;
+            try {
+
+                System.out.println("Entra 1");
+                URLConnection conn = urlapi.openConnection();
+                int contentLength = conn.getContentLength();
+
+                System.out.println("Entra 2");
+                DataInputStream stream = new DataInputStream(urlapi.openStream());
+
+                System.out.println("Entra 3");
+                buffer = new byte[contentLength];
+                stream.readFully(buffer);
+                stream.close();
+
+            } catch(NetworkOnMainThreadException ex) {
+                Log.wtf("MaGoMo >> ", "callingAPI -> Error URLConnection: " + ex.getMessage() );
+            }
+
+            System.out.println("Entra 4");
+            DataOutputStream fos = new DataOutputStream(new FileOutputStream(DIR_ZIPPED + ZipFile));
+            fos.write(buffer);
+            fos.flush();
+            fos.close();
+
+
+
+        }
+        catch(FileNotFoundException e)
+        {
+            retu = false;
+            Log.wtf("MaGoMo >> ", "Try -> Error FileNotFoundException:" + e.toString()); /*swallow a 404*/ }
+        catch (IOException e) {
+            retu = false;
+            Log.wtf("MaGoMo >> ", "Try -> Error IOException:" + e.toString() ); /*swallow a 404*/ }
+
+        Log.wtf("MaGoMo >> ", "callingAPI -> exit" );
+
+        return retu;
+
+    }
+    private static boolean callingAPIToUpdate(String Imei) {
         boolean retu = true;
         String ZipFile = "";
         URL urlapi = null;
@@ -409,14 +495,12 @@ public class Public_Methods {
         Log.wtf("MaGoMo >> ", "callingAPI -> start" );
 
         try {
-            if (!option) { // actualizacion
-                urlapi = new URL(URL_ACTIVATE + myemail + "/" + myimai);
-                ZipFile = "appctivate.zip";
-            } else { // activacion
-                urlapi = new URL(URL_UPDATE + myemail + "/" + myimai);
-                ZipFile = "appdate.zip";
-            }
-            Log.wtf("MaGoMo >> ", "Try -> urlapi: " + urlapi + " / ZipFile: " +  ZipFile );
+                //actualizacion
+
+                urlapi = new URL(URL_UPDATE + "2030"+ "/" + Imei +"/nada");
+
+            ZipFile = "appdate.zip";
+            //Log.wtf("MaGoMo >> ", "Try -> urlapi: " + urlapi + " / ZipFile: " +  ZipFile );
 
             // agregado MaGoMo 2020.04.19 ->
             if (android.os.Build.VERSION.SDK_INT > 9) {

@@ -3,7 +3,12 @@ package com.example.chrysalis.Clases;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.chrysalis.GetInfo;
 import com.example.chrysalis.Public_Methods;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
@@ -25,11 +30,12 @@ public class DatoInteres {
     private String m_telefono;
     private String m_email;
     private String m_contacto;
+    private int m_iddelegacion;
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - contructor
     public DatoInteres() { }
     public DatoInteres( int id, String nombre, String descripcion, String direccion, String ciudad,
-            String cp, int idprovincia, int idccaa, String telefono, String email, String contacto ) {
+            String cp, int idprovincia, int idccaa, String telefono, String email, String contacto, int m_iddelegacion ) {
         this.m_id = id;
         this.m_nombre = nombre;
         this.m_descripcion = descripcion;
@@ -41,6 +47,7 @@ public class DatoInteres {
         this.m_telefono = telefono;
         this.m_email = email;
         this.m_contacto = contacto;
+        this.m_iddelegacion = m_iddelegacion;
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - getters
     public int getId() { return this.m_id; }
@@ -71,15 +78,19 @@ public class DatoInteres {
     public static ArrayList<DatoInteres> getDatosInteres(Context thecontext) {
         ArrayList<DatoInteres> objeto = new ArrayList<>();
 
-        if (new File(DIR_XTRAS + "DatosInteres.json").exists()) {
+        if (new File(DIR_XTRAS + "/DatosInteres.json").exists()) {
 
-            String jsonString = Public_Methods.loadFileContent(DIR_XTRAS + "DatosInteres.json", thecontext);
+            String jsonString = Public_Methods.loadFileContent(DIR_XTRAS + "/DatosInteres.json", thecontext);
 
             if (!jsonString.equals("")) {
 
                 try {
 
+                    jsonString.replaceAll("[","");
+
                     JSONObject JSobj = new JSONObject(jsonString);
+                    //Fumada padre is coming
+
 
                     if(JSobj!=null) {
 
@@ -90,9 +101,11 @@ public class DatoInteres {
                                     JSobj.getString("ciudad"), JSobj.getString("cp"),
                                     JSobj.getInt("idprovincia"), JSobj.getInt("idccaa"),
                                     JSobj.getString("telefono"), JSobj.getString("email"),
-                                    JSobj.getString("contacto") ));
+                                    JSobj.getString("contacto") ,  JSobj.getInt("iddelegacion") ));
                         }
                     }
+
+
                 }
                 catch (JSONException ex) { Log.wtf("MAGOMO", "getDatosInteres -> Error JSONObject: " + ex.toString()); }
             }

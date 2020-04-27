@@ -25,7 +25,7 @@
             app:layout_constraintDimensionRatio="H,16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avatar_image1"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@android:color/darker_gray" />
 
@@ -34,84 +34,55 @@
             android:id="@+id/title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
             android:text="Crysalis Cat"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="@color/design_default_color_primary"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar_image1"
+            app:layout_constraintBottom_toTopOf="@+id/primary_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/avatar_image1"
-            app:layout_constraintTop_toTopOf="@+id/avatar_image1" />
-
-        <ImageView
-            android:id="@+id/avatar_image1"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:padding="4dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/media_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/cirucloshape" />
-
-        <ImageView
-            android:id="@+id/avatar_image2"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:padding="4dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/media_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/chrysallis_logo2" />
+            app:layout_constraintStart_toStartOf="@+id/primary_text"
+            app:layout_constraintTop_toBottomOf="@+id/media_image"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/sub_text"
+            android:id="@+id/nombre_ciudad"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Nombre Ciudad"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/design_default_color_secondary"
+            android:textColor="#000000"
             app:layout_constraintBottom_toTopOf="@+id/action_button_1"
-            app:layout_constraintEnd_toStartOf="@+id/sub_text4"
+            app:layout_constraintEnd_toStartOf="@+id/fecha_hora"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/primary_text" />
 
         <TextView
-            android:id="@+id/sub_text4"
+            android:id="@+id/fecha_hora"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="Fecha y hora"
             android:textAlignment="textEnd"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/design_default_color_secondary_variant"
-            app:layout_constraintBottom_toBottomOf="@+id/sub_text"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/nombre_ciudad"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sub_text"
-            app:layout_constraintTop_toTopOf="@+id/sub_text" />
+            app:layout_constraintStart_toEndOf="@+id/nombre_ciudad"
+            app:layout_constraintTop_toTopOf="@+id/nombre_ciudad" />
 
         <TextView
             android:id="@+id/primary_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:text="Evento numero 1"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/design_default_color_primary"
-            app:layout_constraintBottom_toTopOf="@+id/sub_text"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/nombre_ciudad"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/media_image" />
@@ -131,7 +102,7 @@
             app:backgroundTint="#AED581"
             app:layout_constraintBottom_toTopOf="@+id/supporting_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sub_text" />
+            app:layout_constraintTop_toBottomOf="@+id/nombre_ciudad" />
 
         <Button
             android:id="@+id/action_button_2"

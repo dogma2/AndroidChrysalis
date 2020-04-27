@@ -2,27 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activities.Detalles_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Activities.Detalles_activity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/AppbarlayoutMasDetalles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#3F6F40"
             app:expanded="true"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbarMasDetalles"
@@ -37,7 +37,9 @@
             android:id="@+id/scrollViewMasDetalles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,23 +56,121 @@
                     app:srcCompat="@mipmap/ic_launcher" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/MD_Titulo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DESCRIPCIOn" />
+                    android:text="Titulo"
+                    android:textAlignment="center"
+                    android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/textViewInfo"
+                    android:id="@+id/MD_delegacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Info " />
+                    android:layout_marginTop="20dp"
+                    android:text="NombreDelegacion"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:id="@+id/MD_introducion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="introducion" />
+
+                <TextView
+                    android:id="@+id/MD_descripcionview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/ic_expand_more_black_36dp"
+                    android:labelFor="@id/MD_descripcion"
+                    android:paddingRight="10dp"
+                    android:text="Descripcion"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/MD_descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="descripcion"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/MD_fechahoraviwer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+
+                    android:drawableRight="@drawable/ic_expand_more_black_36dp"
+                    android:labelFor="@id/MD_fechayhora"
+                    android:paddingRight="10dp"
+                    android:text="Fecha y Hora"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/MD_fechayhora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="info..."
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/MD_ubicacionview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+
+                    android:drawableRight="@drawable/ic_expand_more_black_36dp"
+                    android:labelFor="@id/MD_ubicacion"
+                    android:paddingRight="10dp"
+                    android:text="Ubicacion"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/MD_ubicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="blablalbalb"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/MD_notasactiv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/ic_expand_more_black_36dp"
+                    android:labelFor="@id/MD_notas"
+                    android:paddingRight="10dp"
+                    android:text="Notas"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/MD_notas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="blablalbalb"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:tint="#69000000"
+                    app:srcCompat="@drawable/chrysallis_logo" />
 
             </LinearLayout>
 
 
         </androidx.core.widget.NestedScrollView>
-
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -98,8 +198,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/layout_apuntarse_fragment" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,9 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static com.example.chrysalis.FixedData.DIR_XTRAS;
+import static com.example.chrysalis.FixedData.DIR_ZIPPED;
+import static com.example.chrysalis.FixedData.ZIP_DATAS;
 
 public class Evento {
 
@@ -85,12 +88,56 @@ public class Evento {
     public String toString() { return this.m_id+": "+this.m_titulo+"\n"; }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - getEvento ->
+    public static ArrayList<Evento> GetAllEventos(Context contexto)
+    {
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+        File ListaEventos = new File(ZIP_DATAS);
+        for(File f : ListaEventos.listFiles())
+        {
+            Log.wtf("Oriol", "getDatas -> First file: " + f.getName());
+            if(f.getName().substring(0,6).equals("Evento"))
+            {
+                Log.wtf("Oriol", "File equals to evento");
+                String sid = f.getName().substring(6).replaceAll(".json","");
+                int id;
+                try
+                {
+                    id = Integer.parseInt(sid);
+                    Log.wtf("Oriol", "Try parse succed: "+ id);
+                }
+                catch (NumberFormatException n)
+                {
+                    Log.wtf("Oriol", "Error Parsing: "+ sid);
+                    id = -1;
+                }
+
+                Evento e = getEvento(contexto, id);
+                if(e.m_id != 0)
+                {
+                    eventos.add(e);
+                }
+
+
+
+
+
+            }
+            else
+            {
+                System.out.println("NON EQUALS TO EVENTO "+ f.getName().substring(0,6));
+            }
+
+
+        }
+
+        return eventos;
+    }
     public static Evento getEvento(Context thecontext, int idEvento) {
         Evento objeto = new Evento();
 
-        if (new File(DIR_XTRAS + "Evento"+idEvento+".json").exists()) {
+        if (new File(ZIP_DATAS + "/"+"Evento"+idEvento+".json").exists()) {
 
-            String jsonString = Public_Methods.loadFileContent(DIR_XTRAS + "Evento"+idEvento+".json", thecontext);
+            String jsonString = Public_Methods.loadFileContent(ZIP_DATAS + "/" + "Evento"+idEvento+".json", thecontext);
 
             if (!jsonString.equals("")) {
 

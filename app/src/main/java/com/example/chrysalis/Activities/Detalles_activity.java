@@ -1,20 +1,14 @@
 package com.example.chrysalis.Activities;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.admin.DeviceAdminInfo;
-import android.app.admin.DevicePolicyManager;
-import android.bluetooth.BluetoothClass;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -22,14 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
+import com.example.chrysalis.Clases.Evento;
 import com.example.chrysalis.Fragments.ApuntarseFragment;
 import com.example.chrysalis.R;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
+
+import java.io.File;
+
+import static com.example.chrysalis.FixedData.ZIP_DATAS;
 
 public class Detalles_activity extends AppCompatActivity  implements  ApuntarseFragment.OnFragmentInteractionListener {
 
@@ -46,9 +43,74 @@ public class Detalles_activity extends AppCompatActivity  implements  ApuntarseF
 
         ImageView imagen = findViewById(R.id.imageViewEntrada);
         //final BottomNavigationView Menu = findViewById(R.id.MenuBar);
-        TextView info = findViewById(R.id.textViewInfo);
+
         floatingActionButton = findViewById(R.id.FlotingButtonMasDetalles);
 
+
+        TextView textViewTitulo = findViewById(R.id.MD_Titulo);
+        TextView textViewNombreDelegacion = findViewById(R.id.MD_delegacion);
+
+        TextView textviewResumen = findViewById(R.id.MD_introducion);
+
+        TextView textViewActivDescripcion = findViewById(R.id.MD_descripcionview);
+        TextView textViewActivFechas = findViewById(R.id.MD_fechahoraviwer);
+        TextView textViewActivUbicacion = findViewById(R.id.MD_ubicacionview);
+
+        TextView textViewDescripcion = findViewById(R.id.MD_descripcion);
+        TextView textViewFecha = findViewById(R.id.MD_fechayhora);
+        TextView textViewUbicacion = findViewById(R.id.MD_ubicacion);
+
+        TextView textViewActivNotas = findViewById(R.id.MD_notasactiv);
+        TextView textviewnotas = findViewById(R.id.MD_notas);
+
+
+        textViewActivDescripcion.setOnClickListener(textos);
+        textViewActivFechas.setOnClickListener(textos);
+        textViewActivUbicacion.setOnClickListener(textos);
+        textViewActivNotas.setOnClickListener(textos);
+
+        Bundle extras = getIntent().getExtras();
+        int num = extras.getInt("KEY");
+        Evento e = Evento.getEvento(getApplicationContext(),num);
+
+
+        if(new File(ZIP_DATAS + "/" + "Evento"+e.getId()+".json").exists())
+        {
+            Bitmap imagne = BitmapFactory.decodeFile(ZIP_DATAS + "/" + "Images"+ "/" + "Evento"+e.getId()+".jpg");
+            imagen.setImageBitmap(imagne);
+        }
+
+
+        textViewTitulo.setText(e.getTitulo());
+        textviewResumen.setText(e.getIntro());
+        textViewDescripcion.setText(e.getDescripcion());
+        StringBuilder fechas = new StringBuilder();
+        fechas.append("Fecha Evento : " + e.getFechaInicio() + "\n");
+        fechas.append("Hora inicio: " + e.getHoraInicio() + "\n");
+        if(!e.getFechaInicio().equals(e.getHoraFin()))
+        {
+            fechas.append("Fecha fin:"+e.getFechaFin()+"\n");
+        }
+        else
+        {
+            fechas.append("Acaba a las: " + e.getHoraFin()+"\n");
+        }
+        textViewFecha.setText(fechas.toString());
+
+        StringBuilder ubicacion = new StringBuilder();
+        ubicacion.append("Ciudad: "+e.getCiudad()+"\n");
+        ubicacion.append(""+ e.getCoordGPS()+"\n");
+        textViewUbicacion.setText(ubicacion.toString());
+
+        StringBuilder Notas = new StringBuilder();
+        Notas.append("Notas adicionales : \n");
+        Notas.append(e.getNotaEvento() + "\n");
+        if(!e.getNotaTransporte().equals(""))
+        {
+            Notas.append("Notas de transporte : \n");
+            Notas.append(e.getNotaTransporte()+ "\n");
+        }
+       textviewnotas.setText(Notas.toString());
         MaterialToolbar barra = findViewById(R.id.materialToolbarMasDetalles);
 
 
@@ -67,22 +129,7 @@ public class Detalles_activity extends AppCompatActivity  implements  ApuntarseF
             }
         });
 
-        String SuperString="";
-        for(int cnt = 0; cnt < 100; cnt++)
-        {
-            if(cnt > 0)
-            {
-                SuperString += (cnt+1) + " Cacatuas" +"\n";
-            }
-            else
-            {
-                SuperString += (cnt+1) + " Cacatua" +"\n";
-            }
 
-
-
-        }
-        info.setText(SuperString);
 
         scroll = findViewById(R.id.scrollViewMasDetalles);
 
@@ -117,28 +164,28 @@ public class Detalles_activity extends AppCompatActivity  implements  ApuntarseF
         });
 }
 
+    private View.OnClickListener textos = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TextView t = (TextView) v;
+
+            View texto = findViewById(v.getLabelFor());
+            if(texto.getVisibility() == View.VISIBLE)
+            {
+                texto.setVisibility(View.GONE);
+
+                t.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_more_black_36dp, 0);
+            }
+            else
+            {
+                texto.setVisibility(View.VISIBLE);
+                t.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_less_black_36dp, 0);
+            }
+
+        }
+    };
 
 
-    public void SetAnimationDesaparecer()
-    {
-        animacion = ObjectAnimator.ofFloat(floatingActionButton, View.ALPHA, 1.0f, 0.0f);
-        animacion.setDuration(200);
-        AnimatorSet animatorSetAlpha = new AnimatorSet();
-        animatorSetAlpha.play(animacion);
-        animatorSetAlpha.start();
-
-        floatingActionButton.setVisibility(View.GONE);
-    }
-    public void SetAnimationAparecer()
-    {
-        floatingActionButton.setVisibility(View.VISIBLE);
-        animacion = ObjectAnimator.ofFloat(floatingActionButton, View.ALPHA, 0.0f, 1.0f);
-        animacion.setDuration(200);
-
-        AnimatorSet animatorSetAlpha = new AnimatorSet();
-        animatorSetAlpha.play(animacion);
-        animatorSetAlpha.start();
-    }
 
     View.OnClickListener DisAtachLisener = new View.OnClickListener() {
         @Override

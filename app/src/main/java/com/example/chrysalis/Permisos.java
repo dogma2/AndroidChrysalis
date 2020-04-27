@@ -87,14 +87,16 @@ public class Permisos implements ActivityCompat.OnRequestPermissionsResultCallba
         return ret;
     }
 
-    public void Imei()
+    public static String getImei(Context contexto)
     {
+        String ret = null;
         if (ActivityCompat.checkSelfPermission(contexto, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
         {
             TelephonyManager telephonyManager = (TelephonyManager)contexto.getSystemService(Context.TELEPHONY_SERVICE);
-            String e = telephonyManager.getDeviceId();
-            System.out.println("IMEI: "+e);
+            ret = telephonyManager.getDeviceId();
+
         }
+        return ret;
     }
 
 

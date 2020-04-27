@@ -1,19 +1,37 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Estolo" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Estolo" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:actionButtonStyle">@style/ActionButton</item>
+        <item name="toolbarStyle"> @style/FormatoBarra</item>
+        <item name="appBarLayoutStyle">@style/appbar</item>
+
 
     </style>
     <style name="ActionButton" parent="@android:style/Widget.ActionButton">
         <item name="android:drawable">@dimen/action_button_padding</item>
     </style>
+    <style name="FormatoBarra" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:titleTextColor" tools:targetApi="m">#FFFFFF</item>
 
+    </style>
+
+
+    <style name="textStyle">
+
+
+    </style>
+    <style name="appbar" parent="Widget.Design.AppBarLayout">
+        <item name="android:background">@color/dogma2chrysallis_A100</item>
+
+
+
+    </style>
     <dimen name="action_button_padding">5dp</dimen>
 </resources>

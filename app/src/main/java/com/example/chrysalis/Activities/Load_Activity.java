@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +20,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.chrysalis.Clases.*;
+import com.example.chrysalis.FixedData;
 import com.example.chrysalis.Permisos;
+import com.example.chrysalis.Public_Methods;
 import com.example.chrysalis.R;
 
 import java.io.File;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
 
 import static com.example.chrysalis.Clases.AppData.getAppData;
 import static com.example.chrysalis.Clases.CCAA.getCCAA;
@@ -32,7 +39,7 @@ import static com.example.chrysalis.Clases.Datas.getDatas;
 import static com.example.chrysalis.Clases.Delegacion.getDelegaciones;
 import static com.example.chrysalis.Clases.Idioma.getIdiomas;
 import static com.example.chrysalis.Clases.Provincia.getProvincias;
-import static com.example.chrysalis.Public_Methods.callFilesWork;
+
 
 public class Load_Activity extends AppCompatActivity {
 
@@ -44,12 +51,7 @@ public class Load_Activity extends AppCompatActivity {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - MaGoMo atributos para carga de jsons config ->
     public static File AppBaseDir;
     public static Context mainContext;
-    public static String myemail;
-    public static String myimai;
-    public static String mycode;
-    public static AppData appddata;
-    public static Config config;
-    public static Datas datas;
+
     public static ArrayList<Delegacion> delegaciones;
     public static ArrayList<CCAA> comunidades;
     public static ArrayList<Idioma> idiomas;
@@ -59,93 +61,151 @@ public class Load_Activity extends AppCompatActivity {
     public static ArrayList<DatoInteres> datosinteres;
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - MaGoMo atributos para carga de jsons config //
 
+    public static final int ESNUEVO = 1;
+    public static final int NOESTAACTIVADO = 2;
+    public static final String KEY = "STATE";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_load);
         p = new Permisos(this);
 
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
 
-
-/*
-carga de json
-	- existen
-		controla que este activado con
-		appddata.getState()!=0
-		activado = false
-	- no existen
-		activado = false
-
-Si activado == false
-	>>> pide email
-	>>> con email lanza proceso activacion (carga archivos y envia email)
-	>>> cuando cargue archivos, muestra pantalla de codigo con datos RGPD chrysallis
-	>>> pide codigo
-	>>> compara codigo con "m_code":"2427C0",
-	>>> acepta terminos de uso si es == cambia "m_state":1 y almacena timestamp "m_date":1587421358,
-
-Si activado == true
-
-	>>> controlar actualizacion "_next":1587421358 <= HOY >>> ejecuta actualizar
-
-    >>> SI CONTROL DESACTIVADO EN ACTUALIZACION ejecuta DeactivateFileDelete() {y vuelve a iniciar aplicacion)
-
-INICIA APLICACION (con listra EVENTOS)
-*/
-
-        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - MaGoMo 2020.04.20
+        if(!p.HasAllPermisos())
+        {
+            p.SolicitarTodosLosPerimisos();
+        }
         mainContext = getApplicationContext(); // context
         AppBaseDir = getExternalFilesDir(null); // external access
-        myimai = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID); // imei phone
-        myemail = ""; // email introducido por usuario
-        mycode = ""; // codigo introducido por usuario
+
+
+
+        // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - MaGoMo 2020.04.20
+
+
+
+        //imai = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID); // imei phone
+        //myemail = ""; // email introducido por usuario
+        //mycode = ""; // codigo introducido por usuario
 
         Log.wtf("MaGoMo >> ", "MainActivity onCreate -> AppBaseDir " + AppBaseDir.getPath() );
 
-        // - - - - - - - - - - permisos de aplicacion
-        Permisos(mainContext); // estable ce permisos de la aplicacion
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Comprobar si existe el directorio
+                if (new File(FixedData.DIR_MASTER).exists()) //Existe el directiorio
+                {
+                    Log.wtf("Oriol >> ", "El directorio existe" );
+                    //Leer los ficheros de configuracion.
+                    //Determinar si esta activado.
+                    // -->Si esta activado, llamar a la API para que lo reconfirme.
 
-        // - - - - - - - - - - carga datos de archivos json
-        getJsonData(mainContext);
-
-        // - - - - - - - - - - control de estado
-        if (appddata.getCidApp() == null || appddata.getCidApp().equals("")) { /*no instalado*/
-
+                    // --> Si existe, comprobar si esta activado
+                    // ---->Esta activado Ir a la pagina de inicio
+                    // ----> No esta activado: ir a la pagina de login
+                    // solicitar correo
+                    //
+            /*
             Log.wtf("MAGOMO", "Main -> no instalado !");
             if ( callFilesWork(false)) {
                 Log.wtf("MAGOMO", "Main -> INSTALADO !");
                 // - - - - - - - - - - carga datos de archivos json
                 getJsonConfig(mainContext);
                 getJsonData(mainContext);
+            }*/
+
+                    //appddata.setState(1);
+                   // if(AppData.SetData(appddata))
+                    //{
+                   //     System.out.println("Ha habido un error");
+                    //}
+                    AppData appdata = AppData.getAppData(getApplicationContext());
+
+
+                    if(appdata.getState() == 1)
+                    {
+                        Log.wtf("Oriol >> ", "El usuario esta activado" );
+                        //Esta Activado
+                        //Preguntamos a la api se de verdad esta activado
+
+                        //Comprobamos si hay alguna actualizacion.
+
+
+                        //Falta pulir esto comentar de momento para uqe no actualzie todoo el rato
+                        if(appdata.getUpdate() >= appdata.getNext())
+                        {
+
+                            Public_Methods.unZipUpdate(Permisos.getImei(getApplicationContext()));
+                            Public_Methods.ActivateFileCopy();
+                            ;
+                            Calendar c = Calendar.getInstance();
+                            appdata.setUpdate((int) c.getTime().getTime());
+                        }
+
+                        Intent i = new Intent(Load_Activity.this, Inicio_activity.class);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        Log.wtf("Oriol >> ", "El usuario esta desactivado" );
+                        //estas desactivado
+                        //llamamos a la actividad de login i enviamos como blunndle el estado
+                        Bundle b = new Bundle();
+                        b.putInt(KEY, NOESTAACTIVADO);
+                        Intent i = new Intent(Load_Activity.this, Login_activity.class);
+                        i.putExtras(b);
+                        startActivity(i);
+
+                    }
+
+
+                }
+                else
+                {
+                    Log.wtf("Oriol >> ", "El directorio no existe" );
+                    Intent i = new Intent(Load_Activity.this, Login_activity.class);
+                    Bundle b = new Bundle();
+                    b.putInt(KEY,ESNUEVO);
+                    i.putExtras(b);
+                    startActivity(i);
+
+                    // --> No existe el directorio -> Ir a la pagina de Login
+                    // En la pagina de login
+                    // Solicitar correo electronico
+                    // Llamar a la API con el Correo junto al IMEI
+                    // Crear estructura de carpetas.
+                    // Recibir el Pack de instalacion
+                    // Descomprimir i leer Los JSON necesarios
+                    // Solicitar el codigo de verificacion
+                    // Compararlo con el codigo que hemos cargado previamente en el momento de leer los json.
+                    //
+                }
+
             }
+        }, 4000);
 
-        }
-        else if (appddata.getState()==0) { /*desactivado*/
+        // - - - - - - - - - - carga datos de archivos json
 
-            Log.wtf("MAGOMO", "Main -> no instalado !");
-            if ( callFilesWork(false)) {
-                Log.wtf("MAGOMO", "Main -> INSTALADO !");
-                // - - - - - - - - - - carga datos de archivos json
-                getJsonData(mainContext);
-                getJsonData(mainContext);
-            }
 
-        }
-        else { /*estado activo y funcional*/
+        // - - - - - - - - - - control de estado
 
-            Log.wtf("MAGOMO", "Main -> estado activo y funcional !");
 
-            // CONTROLAR SI DEBE ACTUALIZAR
 
-            getJsonData(mainContext);
-        }
+
+
+
+    }
+
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - MaGoMo carga de jsons config //
 
 
 
-        if (getIntent().getBooleanExtra("EXIT", false)) {
-            finish();
-        }
+/*
         if(p.HasAllPermisos())
         {
             new Handler().postDelayed(new Runnable() {
@@ -163,7 +223,7 @@ INICIA APLICACION (con listra EVENTOS)
             p.SolicitarTodosLosPerimisos();
         }
 
-
+*/
 
         /*
         else
@@ -182,15 +242,15 @@ INICIA APLICACION (con listra EVENTOS)
 
 
 
-    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         p.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(p.HasAllPermisos())
         {
-            Intent i = new Intent(Load_Activity.this, Login_activity.class);
-            startActivity(i);
+            //Intent i = new Intent(Load_Activity.this, Login_activity.class);
+            //startActivity(i);
         }
         else
         {
@@ -230,7 +290,7 @@ INICIA APLICACION (con listra EVENTOS)
 
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo get JSONCONFIG ->
-    public void getJsonConfig(Context contexto) {
+    public void getJsonConfig(Context contexto, Config config, AppData appddata, Datas datas ) {
         // - - - - - - - - - - carga datos de archivos json
         config = getConfig(contexto);
         appddata = getAppData(contexto);
@@ -249,32 +309,8 @@ INICIA APLICACION (con listra EVENTOS)
         // eventos = getEventos(contexto);
         // datosinteres = getdatosInteres(contexto);
     }
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo get JSONDATA ->
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de PERMISOS ->
-    public void Permisos(Context contexto) {
-
-        String permisoLectura = Manifest.permission.READ_EXTERNAL_STORAGE;
-        String permisoEscritura = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        String permisoTelefono = Manifest.permission.READ_PHONE_STATE;
-        String permisoInternet = Manifest.permission.INTERNET;
-
-        int RequestCode = 1;
-        int RequestCode2 = 2;
-
-        ArrayList<String> ListaPermisos = new ArrayList<>();
-        if(!tienePermiso(contexto, permisoLectura)) { ListaPermisos.add(permisoLectura); }
-        if(!tienePermiso(contexto, permisoEscritura)) { ListaPermisos.add(permisoEscritura); }
-        if(!tienePermiso(contexto, permisoTelefono)) { ListaPermisos.add(permisoTelefono); }
-        if(!tienePermiso(contexto, permisoInternet)) { ListaPermisos.add(permisoInternet); }
-        String[] ListaParam = new String[ListaPermisos.size()];
-        for(int cnt = 0; cnt < ListaParam.length; cnt++) { ListaParam[cnt] = ListaPermisos.get(cnt); }
-        if(ListaParam.length > 0) { ActivityCompat.requestPermissions(this, ListaParam, RequestCode); }
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(),"No puedes tirar hacia atras ahora.",Toast.LENGTH_SHORT).show();
     }
-
-    private boolean tienePermiso(Context contexto, String permiso)
-    {
-        return ActivityCompat.checkSelfPermission(this, permiso) == PackageManager.PERMISSION_GRANTED;
-    }
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - metodo de PERMISOS //
 }

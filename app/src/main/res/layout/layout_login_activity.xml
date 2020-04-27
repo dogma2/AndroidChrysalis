@@ -86,6 +86,7 @@
                 app:startIconTint="#64B5F6">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/EditTextLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textWebEmailAddress"

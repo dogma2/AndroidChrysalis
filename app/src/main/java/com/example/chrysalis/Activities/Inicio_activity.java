@@ -2,35 +2,26 @@ package com.example.chrysalis.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 
 import com.example.chrysalis.Adaptadores_ItemsDecorations.Adaptador_eventos;
+import com.example.chrysalis.Clases.Evento;
 import com.example.chrysalis.Fragments.ApuntarseFragment;
 import com.example.chrysalis.Adaptadores_ItemsDecorations.DecoreItem_Adaptador_eventos;
-import com.example.chrysalis.Evento;
 import com.example.chrysalis.GetInfo;
 import com.example.chrysalis.Adaptadores_ItemsDecorations.ItemDecorationRe;
 import com.example.chrysalis.R;
@@ -41,7 +32,6 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
 import java.util.ArrayList;
-import java.util.zip.InflaterInputStream;
 
 
 public class Inicio_activity extends AppCompatActivity implements ApuntarseFragment.OnFragmentInteractionListener { //Load_Activitys.OnFragmentInteractionListener{
@@ -93,7 +83,7 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
     datosInteres.setOnClickListener(FloatingButtomsListener);
 
 
-
+    //
 
 
     recyclerView.setHasFixedSize(true);
@@ -141,7 +131,8 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
     });
 
 
-    Eventos = GetInfo.GetEventos();
+    Eventos = Evento.GetAllEventos(getApplicationContext());
+
 
 
   Adaptador_eventos adaptador_eventos = new Adaptador_eventos(Eventos, RElistener);
@@ -186,6 +177,13 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
         case R.id.action_button_2:
 
           Intent i = new Intent(Inicio_activity.this, Detalles_activity.class);
+          Bundle b = new Bundle();
+          int pos = recyclerView.getChildAdapterPosition((View) v.getParent().getParent());
+          System.out.println(pos);
+          Evento e = (Evento) Eventos.get(pos);
+          System.out.println(e);
+          b.putInt("KEY",e.getId());
+          i.putExtras(b);
           startActivity(i);
           break;
       }
@@ -227,6 +225,10 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
 
           }
         },2000);
+
+        Eventos.clear();
+        Eventos.addAll(Evento.GetAllEventos(getApplicationContext()));
+        recyclerView.getAdapter().notifyDataSetChanged();
       }
 
       @Override
@@ -235,7 +237,7 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
           @Override
           public void run() {
             refreshLayout.finishLoadmore();
-            Eventos.addAll(GetInfo.GetEventos());
+            //Eventos.addAll(Ev);
             recyclerView.getAdapter().notifyDataSetChanged();
             //Lo que hace para cargar mas eventos
           }
@@ -300,14 +302,16 @@ public class Inicio_activity extends AppCompatActivity implements ApuntarseFragm
   View.OnClickListener FloatingButtomsListener = new View.OnClickListener() {
     @Override
     public void onClick(View v) {
+      Intent i;
       switch (v.getId())
       {
-        case R.id.floatingActionButton:
-
+        case R.id.floatingActionButton: //Datos de interes
+           i = new Intent(Inicio_activity.this, DatosInteres_activity.class);
+          startActivity(i);
           break;
 
         case R.id.floatingActionButton2: //Configuracion
-          Intent i = new Intent(Inicio_activity.this, Ajustes_activity.class);
+           i = new Intent(Inicio_activity.this, Ajustes_activity.class);
           startActivity(i);
           break;
       }
